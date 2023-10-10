@@ -1,0 +1,127 @@
+
+//Criando classe colaboradores 
+class Colaboradores {
+    public String nome;
+    public int id;
+    public float salariobase = 1000;
+    private float salario;
+    private String escolaridade; // nenhuma, basico, medio, superior.
+    private String escola;
+    private String universidade;
+    
+    //Criando as tegras para salários de acordo com a escolaridade neste metodo
+    public void setSalario() {
+        if (this.escolaridade.equals("basico")) {
+            this.salario = this.salariobase + (this.salariobase / 10);
+        } else if (this.escolaridade.equals("medio")) {
+            this.salario = this.salariobase + (this.salariobase / 10) + (this.salariobase / 2);
+        } else if (this.escolaridade.equals("superior")) {
+            this.salario = (this.salariobase + (this.salariobase / 10) + (this.salariobase / 2) * 2);
+        }
+    }
+    //Retorna salario
+    public float getSalario(){
+        return salario;
+    }
+    //Edita escolaridade limitando as opções oferecidas
+    public void setEscolaridade(String escolar){
+        if(escolar=="basico"||escolar=="medio"||escolar=="superior"||escolar=="nenhum"){
+            this.escolaridade=escolar;
+        }
+        else {
+            System.out.println("Escolha entre 'basico', 'medio', 'superior' ou 'nenhuma'");
+        }
+    }
+    //Retorna escolaridade
+    public String getEscolaridade(){
+        return escolaridade;
+    }
+    //Edita nome da escola somente se escolaridade for médio
+    public void setEscola(String nome_escola){
+        if(this.escolaridade=="medio"||nome_escola==" "){
+            this.escola=nome_escola;
+        }
+        else{
+            System.out.println("Altere a escolaridade de "+ this.nome+ " para inserir escola!");
+        }
+    }
+    //Retorna nome da escola
+    public String getEscola(){
+        return escola;
+    }
+    //Edita nome da universidade apenas se escolaridade for superior
+    public void setUniversidade(String nome_universidade){
+        if(this.escolaridade=="superior"||nome_universidade==" "){
+            this.universidade=nome_universidade;
+        }
+        else{
+            System.out.println("Altere a escolaridade de "+ this.nome+ " para inserir universidade!");
+        }
+    //Retorna UNIVERSIDADE
+    }
+    public String getUniversidade(){
+        return universidade;
+    }
+    
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        String[] nomecolaboradores = {"Joao", "Marcio", "Maria", "Fernanda", "Antonio", "Claudio", "Andre", "Tiago", "Pedro", "Ana"};
+
+        Colaboradores[] funcionario = new Colaboradores[10];
+
+        for (int i = 0; i < 10; i++) {
+            funcionario[i] = new Colaboradores(); 
+            funcionario[i].nome = nomecolaboradores[i]; 
+            funcionario[i].id=1000+i;
+            if(i<4){
+                funcionario[i].setEscolaridade("basico");
+            }
+            else if(i>3&&i<8){
+                funcionario[i].setEscolaridade("medio");
+            }
+            else{
+                funcionario[i].setEscolaridade("superior");
+            }
+        }
+        
+        for(int j = 0; j<10; j++){
+            funcionario[j].setSalario();
+        }
+        float salario_basico=0;
+        float salario_medio=0;
+        float salario_superior=0;
+        float soma_salarios=0;
+        
+        for(int i = 0; i<10; i++){
+            if(funcionario[i].getEscolaridade()=="basico"){
+                salario_basico=salario_basico+funcionario[i].getSalario();
+                funcionario[i].setEscola(" ");
+                funcionario[i].setUniversidade(" ");
+            }
+            else if(funcionario[i].getEscolaridade()=="medio"){
+                salario_medio=salario_medio+funcionario[i].getSalario();
+                funcionario[i].setEscola("Ensino médio UNIAVAN");
+                funcionario[i].setUniversidade(" ");
+            }
+            else if(funcionario[i].getEscolaridade()=="superior"){
+                salario_superior=salario_superior+funcionario[i].getSalario();
+                funcionario[i].setUniversidade("Ensino superior UNIAVAN");
+                funcionario[i].setEscola(" ");
+            }
+        }
+        
+        soma_salarios=salario_basico+salario_medio+salario_superior;
+        
+        for(int j=0; j<10; j++){
+            System.out.println(funcionario[j].id +" - "+ funcionario[j].nome +" - "+ funcionario[j].getEscolaridade() +" - "+ funcionario[j].getEscola() + funcionario[j].getUniversidade() +" - "+ funcionario[j].getSalario());
+        }
+        System.out.println(" ");
+        System.out.println("Soma salários ensino básico = R$"+salario_basico);
+        System.out.println("Soma salários ensino médio = R$"+salario_medio);
+        System.out.println("Soma salários ensino superior = R$"+salario_superior);
+        System.out.println("TOTAL = R$"+soma_salarios);
+    }
+}
