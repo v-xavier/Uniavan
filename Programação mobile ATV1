@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Senhas Aleatórias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 60px;
+            padding: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #passwordDisplay {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Senhas</h1>
+
+        <label for="charCount">Escolha o número de caracteres (4 a 10):</label>
+        <input type="number" id="charCount" min="4" max="10" value="8">
+        
+        <button id="generateBtn">Gerar Senha</button>
+
+        <p>Sua senha gerada:</p>
+        <div id="passwordDisplay"></div>
+    </div>
+
+    <!-- JS embutido -->
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const charCount = parseInt(document.getElementById('charCount').value);
+            if (charCount >= 4 && charCount <= 10) {
+                const password = generatePassword(charCount);
+                document.getElementById('passwordDisplay').textContent = password;
+            } else {
+                document.getElementById('passwordDisplay').textContent = 'Por favor, escolha entre 4 e 10 caracteres.';
+            }
+        });
+
+        function generatePassword(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                password += characters[randomIndex];
+            }
+            return password;
+        }
+    </script>
+</body>
+</html>
